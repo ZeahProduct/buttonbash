@@ -1,0 +1,100 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<title>Button Bash</title>
+	</head>
+	<body>
+		<h1 id="cashBar">
+			Cash: $<span id="cash">5</span>
+		</h1>
+		<div class="button-area">
+			<h1>Casino</h1>
+			<h2 id="chanceText">Win Chance: 5%</h2>
+			<h3 id="totalSpent">Total Gambled: $0</h3>
+			<div class="container">
+				<div onclick="buttonClick(1, 25)" class="button blue">$1</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(10, 250)" class="button blue">$10</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(100, 2500)" class="button blue">$100</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(1000, 25000)" class="button blue">$1K</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(10000, 250000)" class="button blue">$10K</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(100000, 2500000)" class="button blue">$100K</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(1000000, 25000000)" class="button blue">$1M</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(1000000, 250000000)" class="button blue">$10M</div>
+			</div>
+			<div class="container">
+				<div onclick="buttonClick(100000000, 2500000000)" class="button blue">$100M</div>
+			</div>
+		</div>
+		<div class="button-area" id="bank">
+				<h1>Bank</h1>
+				<h2 id="balance">Balance: $0</h2>
+				<h3 id="interestRate">Interest Rate: 0.1%</h3>
+				<div class="container">
+					<div onclick="loserButton()" class="button red">Loan</div>
+				</div>
+				<div class="container">
+					<div onclick="deposit(1)" class="button orange">Deposit</div>
+				</div>
+				<div class="container">
+					<div onclick="withdraw(1)" class="button orange">Withdraw</div>
+				</div>
+		</div>
+		<div class="button-area" id="upgrades">
+				<h1>Upgrades</h1>
+				<h2 id="unlockText">Unlock Jackpots</h2>
+				<h3><br/></h3>
+				<div class="container">
+					<div onclick="unlockNext()" id="unlockButton" class="button green">$150</div>
+				</div>
+		</div>
+		<div class="button-area" id="achievements">
+				<h1>Achievements</h1>
+				<h2>Coming soon!</h2>
+		</div>
+		<div class="button-area" id="themes">
+				<h1>Theme Manager</h1>
+				<h2>Background Color</h2>
+				<div class="container">
+					<div onclick="changeTheme(1)" class="button black">Default</div>
+				</div>
+				<div class="container">
+					<div onclick="changeTheme(2)" class="button blue">Blue</div>
+				</div>
+				<div class="container">
+					<div onclick="changeTheme(3)" class="button green">Green</div>
+				</div>
+				<div class="container">
+					<div onclick="changeTheme(4)" class="button yellow">Yellow</div>
+				</div>
+				<div class="container">
+					<div onclick="changeTheme(5)" class="button orange">Orange</div>
+				</div>
+				<div class="container">
+					<div onclick="changeTheme(6)" class="button red">Red</div>
+				</div>
+		</div>
+		<div class="button-area" id="settings">
+				<h1>Settings</h1>
+				<h2>Sound Effects</h2>
+				<div class="container">
+					<div onclick="soundEffects()" id="audioButton" class="button green">On</div>
+				</div>
+		</div>
+
+		<script type="text/javascript" src="main.js"></script>
+	</body>
+</html>
