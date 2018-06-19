@@ -4,97 +4,118 @@
 		<title>Button Bash</title>
 	</head>
 	<body>
-		<h1 id="cashBar">
-			Cash: $<span id="cash">5</span>
-		</h1>
-		<div class="button-area">
-			<h1>Casino</h1>
-			<h2 id="chanceText">Win Chance: 5%</h2>
-			<h3 id="totalSpent">Total Gambled: $0</h3>
-			<div class="container">
-				<div onclick="buttonClick(1, 25)" class="button blue">$1</div>
+		<div id="mainContainer">
+			<h1 id="cashBar">
+				Cash: $<span id="cash">5</span>
+			</h1>
+			<div class="button-area" id="casino">
+				<h1>Casino</h1>
+				<h2 id="chanceText">Win Chance: 5%</h2>
+				<h3 id="totalSpent">Total Gambled: $0</h3>
+				<div class="container">
+					<div onclick="buttonClick(1, 25)" class="button blue">$1</div>
+				</div>
+				<div class="container" id="gamble10">
+					<div onclick="buttonClick(10, 250)" class="button blue">$10</div>
+				</div>
+				<div class="container" id="gamble100">
+					<div onclick="buttonClick(100, 2500)" class="button blue">$100</div>
+				</div>
+				<div class="container" id="gamble1K">
+					<div onclick="buttonClick(1000, 25000)" class="button blue">$1K</div>
+				</div>
+				<div class="container" id="gamble10K">
+					<div onclick="buttonClick(10000, 250000)" class="button blue">$10K</div>
+				</div>
+				<div class="container" id="gamble100K">
+					<div onclick="buttonClick(100000, 2500000)" class="button blue">$100K</div>
+				</div>
+				<div class="container" id="gamble1M">
+					<div onclick="buttonClick(1000000, 25000000)" class="button blue">$1M</div>
+				</div>
 			</div>
-			<div class="container">
-				<div onclick="buttonClick(10, 250)" class="button blue">$10</div>
+			<div class="button-area" id="bank">
+					<h1>Bank</h1>
+					<h2 id="balance">Balance: $0</h2>
+					<h3 id="interestRate">Interest Rate: 0.1%</h3>
+					<div class="container">
+						<div onclick="loserButton()" class="button red">Loan</div>
+					</div>
+					<div class="container">
+						<div onclick="deposit(1)" class="button orange">Deposit</div>
+					</div>
+					<div class="container">
+						<div onclick="withdraw(1)" class="button orange">Withdraw</div>
+					</div>
 			</div>
-			<div class="container">
-				<div onclick="buttonClick(100, 2500)" class="button blue">$100</div>
-			</div>
-			<div class="container">
-				<div onclick="buttonClick(1000, 25000)" class="button blue">$1K</div>
-			</div>
-			<div class="container">
-				<div onclick="buttonClick(10000, 250000)" class="button blue">$10K</div>
-			</div>
-			<div class="container">
-				<div onclick="buttonClick(100000, 2500000)" class="button blue">$100K</div>
-			</div>
-			<div class="container">
-				<div onclick="buttonClick(1000000, 25000000)" class="button blue">$1M</div>
-			</div>
-			<div class="container">
-				<div onclick="buttonClick(1000000, 250000000)" class="button blue">$10M</div>
-			</div>
-			<div class="container">
-				<div onclick="buttonClick(100000000, 2500000000)" class="button blue">$100M</div>
+			<div class="button-area" style="display:inline-block;" id="settingsArea">
+					<h1>Settings</h1>
+					<div id="left">
+						<h3>Sound Effects</h3>
+						<div class="container">
+							<div onclick="soundEffects()" id="audioButton" class="button green">On</div>
+						</div>
+					</div>
+					<div id="right">
+						<h3>Danger Zone</h3>
+						<div class="container">
+							<div onclick="resetSave()" id="resetButton" class="button button2 red">Reset Save</div>
+						</div>
+					</div>
+					<br />
+					<div id="themes">
+						<h3>Themes</h3>
+						<div class="container">
+							<div onclick="changeTheme(1)" class="button black">Default</div>
+						</div>
+						<div class="container">
+							<div onclick="changeTheme(2)" class="button blue">Blue</div>
+						</div>
+						<div class="container">
+							<div onclick="changeTheme(3)" class="button green">Green</div>
+						</div>
+						<div class="container">
+							<div onclick="changeTheme(4)" class="button yellow">Yellow</div>
+						</div>
+						<div class="container">
+							<div onclick="changeTheme(5)" class="button orange">Orange</div>
+						</div>
+						<div class="container">
+							<div onclick="changeTheme(6)" class="button red">Red</div>
+						</div>
+					</div>
 			</div>
 		</div>
-		<div class="button-area" id="bank">
-				<h1>Bank</h1>
-				<h2 id="balance">Balance: $0</h2>
-				<h3 id="interestRate">Interest Rate: 0.1%</h3>
-				<div class="container">
-					<div onclick="loserButton()" class="button red">Loan</div>
-				</div>
-				<div class="container">
-					<div onclick="deposit(1)" class="button orange">Deposit</div>
-				</div>
-				<div class="container">
-					<div onclick="withdraw(1)" class="button orange">Withdraw</div>
-				</div>
-		</div>
-		<div class="button-area" id="upgrades">
+		<div class="upgradesContainer">
 				<h1>Upgrades</h1>
-				<h2 id="unlockText">Unlock Jackpots</h2>
-				<h3><br/></h3>
-				<div class="container">
-					<div onclick="unlockNext()" id="unlockButton" class="button green">$150</div>
+				<div id="casinoUpgrades" style="display:inline-block;">
+				<h2>Casino</h2>
+					<div class="container">
+						<div onclick="upgradeCasino()" id="casinoUpgrade" class="button button2 blue">Jackpots<br/>$5,000</div>
+					</div>
+				</div>
+				<h2>Bank</h2>
+				<div id="bankUpgrades" style="display:inline-block;">
+					<div class="container">
+						<div onclick="upgradeCapacity()" id="bankUpgrade" class="button button2 orange">Increased Capacity<br/>$2,500</div>
+					</div>
+					<div class="container">
+						<div onclick="upgradeInterest()" id="bankUpgrade2" class="button button2 orange">Increased Interest<br/>$500</div>
+					</div>
+				</div>
+				<div id="settingsUpgrades">
+					<h2>Settings</h2>
+					<div style="display:inline-block;">
+						<div class="container">
+							<div onclick="upgradeSettings()" id="settingsUpgrade" class="button button2 green">Themes<br/>$1000</div>
+						</div>
+					</div>
 				</div>
 		</div>
-		<div class="button-area" id="achievements">
+		<div class="upgradesContainer" id="achievements">
 				<h1>Achievements</h1>
 				<h2>Coming soon!</h2>
 		</div>
-		<div class="button-area" id="themes">
-				<h1>Theme Manager</h1>
-				<h2>Background Color</h2>
-				<div class="container">
-					<div onclick="changeTheme(1)" class="button black">Default</div>
-				</div>
-				<div class="container">
-					<div onclick="changeTheme(2)" class="button blue">Blue</div>
-				</div>
-				<div class="container">
-					<div onclick="changeTheme(3)" class="button green">Green</div>
-				</div>
-				<div class="container">
-					<div onclick="changeTheme(4)" class="button yellow">Yellow</div>
-				</div>
-				<div class="container">
-					<div onclick="changeTheme(5)" class="button orange">Orange</div>
-				</div>
-				<div class="container">
-					<div onclick="changeTheme(6)" class="button red">Red</div>
-				</div>
-		</div>
-		<div class="button-area" id="settings">
-				<h1>Settings</h1>
-				<h2>Sound Effects</h2>
-				<div class="container">
-					<div onclick="soundEffects()" id="audioButton" class="button green">On</div>
-				</div>
-		</div>
-
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
