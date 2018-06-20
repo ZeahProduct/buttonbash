@@ -134,7 +134,7 @@ function withdraw(amount) {
     updateCashLabel();
     updateBalance();
   } else if (parseFloat(localStorage.balance) >= parseFloat(amount)) {
-    localStorage.cash = parseFloat(localStorage.cash) + amount;
+    localStorage.cash = parseFloat(localStorage.cash) + parseFloat(amount);
     localStorage.balance = parseFloat(localStorage.balance) - parseFloat(amount);
     updateCashLabel();
     updateBalance();
