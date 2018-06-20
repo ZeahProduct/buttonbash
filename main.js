@@ -94,7 +94,7 @@ function buttonClick(cost, reward) {
       if (String(localStorage.audio).toLowerCase() === 'true') {
         winAudio.play();
       }
-    } else if (Random(100) >= 95) { // Win
+    } else if (Random(100) >= 90) { // Win
       localStorage.cash = parseFloat(localStorage.cash) + reward;
       if (String(localStorage.audio).toLowerCase() === 'true') {
         winAudio.play();
@@ -105,18 +105,37 @@ function buttonClick(cost, reward) {
 }
 
 function deposit(amount) {
-  if (parseFloat(localStorage.cash) >= amount && parseFloat(localStorage.balance) < parseFloat(localStorage.bankLimit)) {
-    localStorage.cash = parseFloat(localStorage.cash) - amount;
-    localStorage.balance = parseFloat(localStorage.balance) + amount;
+  if (amount == "*" || amount == "") {
+    if (parseFloat(localStorage.cash) + parseFloat(localStorage.balance) <= parseFloat(localStorage.bankLimit))
+    {
+      var depositAmount = parseFloat(localStorage.cash);
+      localStorage.balance = parseFloat(localStorage.balance) + depositAmount;
+      localStorage.cash -= depositAmount;
+    } else {
+      var depositAmount = parseFloat(localStorage.bankLimit) - parseFloat(localStorage.balance);
+      localStorage.balance = parseFloat(localStorage.balance) + depositAmount;
+      localStorage.cash -= depositAmount;
+    }
+    updateCashLabel();
+    updateBalance();
+  } else if (parseFloat(localStorage.cash) >= parseFloat(amount) && parseFloat(localStorage.balance) < parseFloat(localStorage.bankLimit)) {
+    localStorage.cash = parseFloat(localStorage.cash) - parseFloat(amount);
+    localStorage.balance = parseFloat(localStorage.balance) + parseFloat(amount);
     updateCashLabel();
     updateBalance();
   }
 }
 
 function withdraw(amount) {
-  if (parseFloat(localStorage.balance) >= amount) {
+  if (amount == "*" || amount == "") {
+    var depositAmount = parseFloat(localStorage.balance);
+    localStorage.balance = parseFloat(localStorage.balance) - depositAmount;
+    localStorage.cash = parseFloat(localStorage.cash) + depositAmount;
+    updateCashLabel();
+    updateBalance();
+  } else if (parseFloat(localStorage.balance) >= parseFloat(amount)) {
     localStorage.cash = parseFloat(localStorage.cash) + amount;
-    localStorage.balance = parseFloat(localStorage.balance) - amount;
+    localStorage.balance = parseFloat(localStorage.balance) - parseFloat(amount);
     updateCashLabel();
     updateBalance();
   }
@@ -133,8 +152,8 @@ function upgradeSettings() {
 }
 
 function upgradeCasino() {
-  if (parseInt(localStorage.casinoTier) <= 0 && parseFloat(localStorage.cash) >= 5000) {
-    localStorage.cash = parseFloat(localStorage.cash) - 5000;
+  if (parseInt(localStorage.casinoTier) <= 0 && parseFloat(localStorage.cash) >= 1500) {
+    localStorage.cash = parseFloat(localStorage.cash) - 1500;
     localStorage.casinoTier = 1;
     updateCashLabel();
     updateCasino(1);
