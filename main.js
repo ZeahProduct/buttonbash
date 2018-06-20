@@ -31,6 +31,9 @@ if (!localStorage.casinoTier) {
 if (!localStorage.timePlayed) {
   localStorage.timePlayed = 0;
 }
+if (!localStorage.casinoRank) {
+  localStorage.casinoRank = 1;
+}
 
 var winAudio = new Audio('win.mp3');
 winAudio.volume = 0.05;
@@ -89,6 +92,11 @@ function updateCashLabel() {
   }
 }
 
+function updateWinChance() {
+  document.getElementById("chanceText").innerHTML = "Win Chance: " + (9+parseInt(localStorage.casinoRank)) + "%";
+  document.getElementById("casinoText").innerHTML = "Casino " + localStorage.casinoRank;
+}
+
 function updateBalance() {
   document.getElementById("balance").innerHTML = "Balance: $" + numberWithCommas(localStorage.balance);
 }
@@ -105,9 +113,9 @@ function updateSettings(tier) {
 function updateCasino(tier) {
   if (tier >= 1) {
     localStorage.jackpots = true;
-    document.getElementById("casinoUpgrades").style.display = "none";
+    document.getElementById("casinoUpgrade").style.display = "none";
   } else {
-    document.getElementById("casinoUpgrades").style.display = "inline-block";
+    document.getElementById("casinoUpgrade").style.display = "table-cell";
   }
 }
 
@@ -120,7 +128,7 @@ function buttonClick(cost, reward) {
       if (String(localStorage.audio).toLowerCase() === 'true') {
         winAudio.play();
       }
-    } else if (Random(100) >= 90) { // Win
+    } else if (Random(100) < (9+parseInt(localStorage.casinoRank))) { // Win
       localStorage.cash = parseFloat(localStorage.cash) + reward;
       if (String(localStorage.audio).toLowerCase() === 'true') {
         winAudio.play();
@@ -292,6 +300,22 @@ function updateAchievements() {
   } else {
     document.getElementById("spender3").className = "button button2 red";
   }
+
+  if (parseInt(localStorage.casinoRank) >= 5) {
+    document.getElementById("lucky1").className = "button button2 green";
+  } else {
+    document.getElementById("lucky1").className = "button button2 red";
+  }
+  if (parseInt(localStorage.casinoRank) >= 10) {
+    document.getElementById("lucky2").className = "button button2 green";
+  } else {
+    document.getElementById("lucky2").className = "button button2 red";
+  }
+  if (parseInt(localStorage.casinoRank) >= 25) {
+    document.getElementById("lucky3").className = "button button2 green";
+  } else {
+    document.getElementById("lucky3").className = "button button2 red";
+  }
 }
 
 function resetSave() {
@@ -307,6 +331,7 @@ function resetSave() {
     localStorage.settingsTier = 0;
     localStorage.casinoTier = 0;
     localStorage.timePlayed = 0;
+    localStorage.casinoRank = 1;
     updateCashLabel();
     updateCapacityLabel();
     updateInterestLabel();
@@ -317,6 +342,30 @@ function resetSave() {
     updateCasino(0);
     updateSettings(0);
     updateAchievements();
+    updateWinChance();
+  }
+}
+
+function rebirth() {
+  if (parseFloat(localStorage.cash) >= Math.pow(parseInt(localStorage.casinoRank), 3)*1000000) {
+    if (confirm("Are you sure you want to attempt to move on? All cash will be reset!")) {
+      localStorage.cash = 5;
+      localStorage.balance = 0;
+      updateCashLabel();
+      updateBalance();
+
+      if (Random(2) < 1) {
+        localStorage.casinoRank = parseInt(localStorage.casinoRank) + 1;
+        document.getElementById("casinoButtonText").innerHTML = "50% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
+        updateWinChance();
+        updateAchievements();
+        if (String(localStorage.audio).toLowerCase() === 'true') {
+          winAudio.play();
+        }
+      } else {
+        // Play fail audio
+      }
+    }
   }
 }
 
@@ -330,6 +379,8 @@ updateCasino(parseInt(localStorage.casinoTier));
 updateSettings(parseInt(localStorage.settingsTier));
 changeTheme(localStorage.themeId);
 updateAchievements();
+updateWinChance();
+document.getElementById("casinoButtonText").innerHTML = "50% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
 
 //Gain Interest
 setInterval(function() {

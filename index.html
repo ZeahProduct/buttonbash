@@ -11,7 +11,7 @@
 				Cash: $<span id="cash">5</span>
 			</h1>
 			<div class="button-area" id="casino">
-				<h1>Casino</h1>
+				<h1 id="casinoText">Casino 1</h1>
 				<h2 id="chanceText">Win Chance: 10%</h2>
 				<h3 id="totalSpent">Total Gambled: $0</h3>
 				<div class="container">
@@ -87,7 +87,7 @@
 			</div>
 			<div class="button-area" style="display:inline-block;" id="settingsArea">
 					<h1>Settings</h1>
-					<h2>v0.0.5</h2>
+					<h2>v0.0.6</h2>
 					<div id="left">
 						<h3>Sound Effects</h3>
 						<div class="container">
@@ -130,6 +130,9 @@
 				<h2>Casino</h2>
 					<div class="container">
 						<div onclick="upgradeCasino()" id="casinoUpgrade" class="button button2 blue">Jackpots<br/>$1.5K</div>
+					</div>
+					<div class="container" id="rebirth">
+						<div onclick="rebirth()" class="button button2 red">Next Casino<div class="button3" id="casinoButtonText">50% Chance<br/>$1M</div></div>
 					</div>
 				</div>
 				<h2>Bank</h2>
@@ -174,8 +177,12 @@
 					<div id="spender3" class="button button2 red">Trillionaire<br/><div class="button3">Spend $1T in the casino</div></div><br />
 				</div>
 				<div class="container">
-					<h2 style='display:table-row'><i class="material-icons">account_balance</i><br /><br /></h2>
-					<div id="skeptic" class="button button2 red">Skeptic<br/><div class="button3">Earn $1B without using the bank</div></div><br />
+					<h2 style='display:table-row'><i class="material-icons">casino</i><br /><br /></h2>
+					<div id="lucky1" class="button button2 red">Lucky<br/><div class="button3">Enter the 5th casino</div></div><br />
+					<h2 style='display:table-row'><br /></h2>
+					<div id="lucky2" class="button button2 red">Blessed<br/><div class="button3">Enter the 10th casino</div></div>
+					<h2 style='display:table-row'><br /></h2>
+					<div id="lucky3" class="button button2 red">Insane<br/><div class="button3">Enter the 25th casino</div></div><br />
 				</div>
 		</div>
 		<script type="text/javascript" src="main.js"></script>
