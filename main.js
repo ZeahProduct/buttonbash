@@ -79,7 +79,14 @@ function Random(max) {
 
 function updateCashLabel() {
   document.getElementById("cash").innerHTML = abbreviateNumber(localStorage.cash, 2);
-  document.getElementById("totalSpent").innerHTML = "Total Gambled: $" + numberWithCommas(localStorage.totalSpent).slice(0, -3);;
+  document.getElementById("totalSpent").innerHTML = "Total Gambled: $" + numberWithCommas(localStorage.totalSpent).slice(0, -3);
+  for (var i=100; i<10000000000000000000;i*=10) {
+    if (parseFloat(localStorage.totalSpent) >= i) {
+      document.getElementById("gamble"+(i/10)).style.display = "inline-block";
+    } else {
+      document.getElementById("gamble"+(i/10)).style.display = "none";
+    }
+  }
 }
 
 function updateBalance() {
@@ -108,7 +115,7 @@ function buttonClick(cost, reward) {
   if (parseFloat(localStorage.cash) >= cost) {
     localStorage.cash = parseFloat(localStorage.cash) - cost;
     localStorage.totalSpent = parseInt(localStorage.totalSpent) + cost;
-    if (Random(1000) == 1 && String(localStorage.jackpots).toLowerCase() === 'true') { // Jackpot
+    if (Random(500) == 1 && String(localStorage.jackpots).toLowerCase() === 'true') { // Jackpot
       localStorage.cash = parseFloat(localStorage.cash) + reward*10;
       if (String(localStorage.audio).toLowerCase() === 'true') {
         winAudio.play();
@@ -195,12 +202,18 @@ function upgradeCapacity() {
 }
 function updateInterestLabel() {
   var price = Math.pow(Math.pow(parseFloat(localStorage.interestRate) + 10, 2), 4) - 108035670.56;
-  document.getElementById("bankUpgrade2").innerHTML = "Increased Interest<br/>$" + abbreviateNumber(price, 2);
+  if (parseFloat(localStorage.interestRate) >= 0.5) {
+    localStorage.interestRate = 0.5;
+    document.getElementById("bankUpgrade2").style.display = "none";
+  } else {
+    document.getElementById("bankUpgrade2").innerHTML = "Increased Interest<br/>$" + abbreviateNumber(price, 2);
+    document.getElementById("bankUpgrade2").style.display = "table-cell";
+  }
   document.getElementById("interestRate").innerHTML = "Interest Rate: " + numberWithCommas(parseFloat(localStorage.interestRate)) + "%";
 }
 
 function upgradeInterest() {
-  if (parseFloat(localStorage.cash) >= Math.pow(Math.pow(parseFloat(localStorage.interestRate) + 10, 2), 4) - 108035670.56) {
+  if (parseFloat(localStorage.cash) >= Math.pow(Math.pow(parseFloat(localStorage.interestRate) + 10, 2), 4) - 108035670.56 && parseFloat(localStorage.interestRate) < 0.5) {
     localStorage.cash = parseFloat(localStorage.cash) - (Math.pow(Math.pow(parseFloat(localStorage.interestRate) + 10, 2), 4) - 108035670.56);
     localStorage.interestRate = parseFloat(localStorage.interestRate) * 1.1;
     updateInterestLabel();
@@ -282,35 +295,37 @@ function updateAchievements() {
 }
 
 function resetSave() {
-  localStorage.cash = 5;
-  localStorage.totalSpent = 0;
-  localStorage.balance = 0;
-  localStorage.interestRate = 0.1;
-  localStorage.jackpots = false;
-  localStorage.audio = true;
-  localStorage.bankLimit = 1000;
-  localStorage.themeId = 0;
-  localStorage.settingsTier = 0;
-  localStorage.casinoTier = 0;
-  localStorage.timePlayed = 0;
-  updateCashLabel();
-  updateCapacityLabel();
-  updateInterestLabel();
-  updateBalance();
-  soundEffects();
-  soundEffects();
-  changeTheme(0);
-  updateCasino(0);
-  updateSettings(0);
-  updateAchievements();
+  if (confirm("Are you sure you want to reset your saved data?")) {
+    localStorage.cash = 5;
+    localStorage.totalSpent = 0;
+    localStorage.balance = 0;
+    localStorage.interestRate = 0.1;
+    localStorage.jackpots = false;
+    localStorage.audio = true;
+    localStorage.bankLimit = 1000;
+    localStorage.themeId = 0;
+    localStorage.settingsTier = 0;
+    localStorage.casinoTier = 0;
+    localStorage.timePlayed = 0;
+    updateCashLabel();
+    updateCapacityLabel();
+    updateInterestLabel();
+    updateBalance();
+    soundEffects();
+    soundEffects();
+    changeTheme(0);
+    updateCasino(0);
+    updateSettings(0);
+    updateAchievements();
+  }
 }
 
-updateCapacityLabel();
 updateCashLabel();
+updateCapacityLabel();
+updateInterestLabel();
 updateBalance();
 soundEffects();
 soundEffects();
-updateInterestLabel();
 updateCasino(parseInt(localStorage.casinoTier));
 updateSettings(parseInt(localStorage.settingsTier));
 changeTheme(localStorage.themeId);
