@@ -126,6 +126,7 @@ function upgradeSettings() {
   if (parseInt(localStorage.settingsTier) <= 0 && parseFloat(localStorage.cash) >= 1000) {
     localStorage.cash = parseFloat(localStorage.cash) - 1000;
     localStorage.settingsTier = 1;
+    localStorage.themeId = 1;
     updateCashLabel();
     updateSettings(1);
   }
@@ -236,8 +237,8 @@ updateBalance();
 soundEffects();
 soundEffects();
 updateInterestLabel();
-updateCasino(localStorage.casinoTier);
-updateSettings(localStorage.settingsTier);
+updateCasino(parseInt(localStorage.casinoTier));
+updateSettings(parseInt(localStorage.settingsTier));
 changeTheme(localStorage.themeId);
 
 //Gain Interest
