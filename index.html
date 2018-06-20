@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
 		<title>Button Bash</title>
 	</head>
 	<body>
@@ -13,25 +14,34 @@
 				<h2 id="chanceText">Win Chance: 10%</h2>
 				<h3 id="totalSpent">Total Gambled: $0</h3>
 				<div class="container">
-					<div onclick="buttonClick(1, 15)" class="button blue">$1</div>
+					<div onclick="buttonClick(1, 15)" class="button button2 blue">$1</div>
 				</div>
 				<div class="container" id="gamble10">
-					<div onclick="buttonClick(10, 150)" class="button blue">$10</div>
+					<div onclick="buttonClick(10, 150)" class="button button2 blue">$10</div>
 				</div>
 				<div class="container" id="gamble100">
-					<div onclick="buttonClick(100, 1500)" class="button blue">$100</div>
+					<div onclick="buttonClick(100, 1500)" class="button button2 blue">$100</div>
 				</div>
 				<div class="container" id="gamble1K">
-					<div onclick="buttonClick(1000, 15000)" class="button blue">$1K</div>
+					<div onclick="buttonClick(1000, 15000)" class="button button2 blue">$1K</div>
 				</div>
 				<div class="container" id="gamble10K">
-					<div onclick="buttonClick(10000, 150000)" class="button blue">$10K</div>
+					<div onclick="buttonClick(10000, 150000)" class="button button2 blue">$10K</div>
 				</div>
 				<div class="container" id="gamble100K">
-					<div onclick="buttonClick(100000, 1500000)" class="button blue">$100K</div>
+					<div onclick="buttonClick(100000, 1500000)" class="button button2 blue">$100K</div>
 				</div>
 				<div class="container" id="gamble1M">
-					<div onclick="buttonClick(1000000, 15000000)" class="button blue">$1M</div>
+					<div onclick="buttonClick(1000000, 15000000)" class="button button2 blue">$1M</div>
+				</div>
+				<div class="container" id="gamble10M">
+					<div onclick="buttonClick(10000000, 150000000)" class="button button2 blue">$10M</div>
+				</div>
+				<div class="container" id="gamble100M">
+					<div onclick="buttonClick(100000000, 1500000000)" class="button button2 blue">$100M</div>
+				</div>
+				<div class="container" id="gamble1B">
+					<div onclick="buttonClick(1000000000, 15000000000)" class="button button2 blue">$1B</div>
 				</div>
 			</div>
 			<div class="button-area" id="bank">
@@ -39,24 +49,24 @@
 					<h2 id="balance">Balance: $0</h2>
 					<h3 id="interestRate">Interest Rate: 0.1%</h3>
 					<div class="container">
-						<div onclick="loserButton()" class="button red">Loan</div>
+						<div onclick="loserButton()" class="button button2 red">Loan</div>
 					</div>
 					<div class="container">
-						<div onclick="deposit(document.getElementById('bankAmount').value)" class="button orange">Deposit</div>
+						<div onclick="deposit(document.getElementById('bankAmount').value)" class="button button2 orange">Deposit</div>
 					</div>
 					<div class="container">
-						<div onclick="withdraw(document.getElementById('bankAmount').value)" class="button orange">Withdraw</div>
+						<div onclick="withdraw(document.getElementById('bankAmount').value)" class="button button2 orange">Withdraw</div>
 					</div>
 					<br />
 	  			<input type="text" id="bankAmount" placeholder="*">
 			</div>
 			<div class="button-area" style="display:inline-block;" id="settingsArea">
 					<h1>Settings</h1>
-					<h2>v0.0.3</h2>
+					<h2>v0.0.4</h2>
 					<div id="left">
 						<h3>Sound Effects</h3>
 						<div class="container">
-							<div onclick="soundEffects()" id="audioButton" class="button green">On</div>
+							<div onclick="soundEffects()" id="audioButton" class="button button2 green">On</div>
 						</div>
 					</div>
 					<div id="right">
@@ -94,13 +104,13 @@
 				<div id="casinoUpgrades" style="display:inline-block;">
 				<h2>Casino</h2>
 					<div class="container">
-						<div onclick="upgradeCasino()" id="casinoUpgrade" class="button button2 blue">Jackpots<br/>$1,500</div>
+						<div onclick="upgradeCasino()" id="casinoUpgrade" class="button button2 blue">Jackpots<br/>$1.5K</div>
 					</div>
 				</div>
 				<h2>Bank</h2>
 				<div id="bankUpgrades" style="display:inline-block;">
 					<div class="container">
-						<div onclick="upgradeCapacity()" id="bankUpgrade" class="button button2 orange">Increased Capacity<br/>$2,500</div>
+						<div onclick="upgradeCapacity()" id="bankUpgrade" class="button button2 orange">Increased Capacity<br/>$2.5K</div>
 					</div>
 					<div class="container">
 						<div onclick="upgradeInterest()" id="bankUpgrade2" class="button button2 orange">Increased Interest<br/>$500</div>
@@ -110,14 +120,38 @@
 					<h2>Settings</h2>
 					<div style="display:inline-block;">
 						<div class="container">
-							<div onclick="upgradeSettings()" id="settingsUpgrade" class="button button2 green">Themes<br/>$1000</div>
+							<div onclick="upgradeSettings()" id="settingsUpgrade" class="button button2 green">Themes<br/>$5K</div>
 						</div>
+						<!--
+							<div class="container">
+								<div onclick="" id="settingsUpgrade" class="button button2 green">Auto Collect<br/>$1B</div>
+							</div>
+						-->
 					</div>
 				</div>
 		</div>
 		<div class="upgradesContainer" id="achievements">
 				<h1>Achievements</h1>
-				<h2>Coming soon!</h2>
+				<div class="container">
+					<h2 style='display:table-row'><i class="material-icons">access_time</i><br /><br /></h2>
+					<div id="addict" class="button button2 red">Hooked<br/><div class="button3">Play for 1 hour total</div></div><br />
+						<h2 style='display:table-row'><br /></h2>
+					<div id="addict2" class="button button2 red">Addicted<br/><div class="button3">Play for 10 hours total</div></div><br />
+						<h2 style='display:table-row'><br /></h2>
+					<div id="addict3" class="button button2 red">Yikes<br/><div class="button3">Play for 24 hours total</div></div>
+				</div>
+				<div class="container">
+					<h2 style='display:table-row'><i class="material-icons">attach_money</i><br /><br /></h2>
+					<div id="spender1" class="button button2 red">Millionaire<br/><div class="button3">Spend $1M in the casino</div></div><br />
+					<h2 style='display:table-row'><br /></h2>
+					<div id="spender2" class="button button2 red">Billionaire<br/><div class="button3">Spend $1B in the casino</div></div>
+					<h2 style='display:table-row'><br /></h2>
+					<div id="spender3" class="button button2 red">Trillionaire<br/><div class="button3">Spend $1T in the casino</div></div><br />
+				</div>
+				<div class="container">
+					<h2 style='display:table-row'><i class="material-icons">account_balance</i><br /><br /></h2>
+					<div id="skeptic" class="button button2 red">Skeptic<br/><div class="button3">Earn $1B without using the bank</div></div><br />
+				</div>
 		</div>
 		<script type="text/javascript" src="main.js"></script>
 	</body>

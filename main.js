@@ -28,9 +28,28 @@ if (!localStorage.settingsTier) {
 if (!localStorage.casinoTier) {
   localStorage.casinoTier = 0;
 }
+if (!localStorage.timePlayed) {
+  localStorage.timePlayed = 0;
+}
 
 var winAudio = new Audio('win.mp3');
 winAudio.volume = 0.05;
+
+function abbreviateNumber(num, digits) {
+    num = parseFloat(num);
+    var units = ['K', 'M', 'B', 'T', 'Q', 'Qt', 'S', ' St', 'O', 'N', 'D'],
+        decimal;
+
+    for(var i=units.length-1; i>=0; i--) {
+        decimal = Math.pow(1000, i+1);
+
+        if(num <= -decimal || num >= decimal) {
+            return +(num / decimal).toFixed(digits) + units[i];
+        }
+    }
+
+    return roundTo(num, 2);
+}
 
 const numberWithCommas = (x) => {
   return roundTo(parseFloat(x), 2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -59,8 +78,8 @@ function Random(max) {
 }
 
 function updateCashLabel() {
-  document.getElementById("cash").innerHTML = numberWithCommas(localStorage.cash);
-  document.getElementById("totalSpent").innerHTML = "Total Gambled: $" + numberWithCommas(localStorage.totalSpent);
+  document.getElementById("cash").innerHTML = abbreviateNumber(localStorage.cash, 2);
+  document.getElementById("totalSpent").innerHTML = "Total Gambled: $" + numberWithCommas(localStorage.totalSpent).slice(0, -3);;
 }
 
 function updateBalance() {
@@ -88,7 +107,7 @@ function updateCasino(tier) {
 function buttonClick(cost, reward) {
   if (parseFloat(localStorage.cash) >= cost) {
     localStorage.cash = parseFloat(localStorage.cash) - cost;
-    localStorage.totalSpent = parseFloat(localStorage.totalSpent) +cost;
+    localStorage.totalSpent = parseInt(localStorage.totalSpent) + cost;
     if (Random(1000) == 1 && String(localStorage.jackpots).toLowerCase() === 'true') { // Jackpot
       localStorage.cash = parseFloat(localStorage.cash) + reward*10;
       if (String(localStorage.audio).toLowerCase() === 'true') {
@@ -100,6 +119,7 @@ function buttonClick(cost, reward) {
         winAudio.play();
       }
     }
+    updateAchievements();
     updateCashLabel();
   }
 }
@@ -142,8 +162,8 @@ function withdraw(amount) {
 }
 
 function upgradeSettings() {
-  if (parseInt(localStorage.settingsTier) <= 0 && parseFloat(localStorage.cash) >= 1000) {
-    localStorage.cash = parseFloat(localStorage.cash) - 1000;
+  if (parseInt(localStorage.settingsTier) <= 0 && parseFloat(localStorage.cash) >= 5000) {
+    localStorage.cash = parseFloat(localStorage.cash) - 5000;
     localStorage.settingsTier = 1;
     localStorage.themeId = 1;
     updateCashLabel();
@@ -162,7 +182,7 @@ function upgradeCasino() {
 
 function updateCapacityLabel() {
   var price = parseFloat(localStorage.bankLimit)*2.5;
-  document.getElementById("bankUpgrade").innerHTML = "Increased Capacity<br/>$" + numberWithCommas(price);
+  document.getElementById("bankUpgrade").innerHTML = "Increased Capacity<br/>$" + abbreviateNumber(price, 2);
 }
 
 function upgradeCapacity() {
@@ -175,7 +195,7 @@ function upgradeCapacity() {
 }
 function updateInterestLabel() {
   var price = Math.pow(Math.pow(parseFloat(localStorage.interestRate) + 10, 2), 4) - 108035670.56;
-  document.getElementById("bankUpgrade2").innerHTML = "Increased Interest<br/>$" + numberWithCommas(price);
+  document.getElementById("bankUpgrade2").innerHTML = "Increased Interest<br/>$" + abbreviateNumber(price, 2);
   document.getElementById("interestRate").innerHTML = "Interest Rate: " + numberWithCommas(parseFloat(localStorage.interestRate)) + "%";
 }
 
@@ -220,11 +240,44 @@ function soundEffects() {
   if (String(localStorage.audio).toLowerCase() === 'true') {
     localStorage.audio = false;
     document.getElementById("audioButton").innerHTML = "Off";
-    document.getElementById("audioButton").className = "button red";
+    document.getElementById("audioButton").className = "button button2 red";
   } else {
     localStorage.audio = true;
     document.getElementById("audioButton").innerHTML = "On";
-    document.getElementById("audioButton").className = "button green";
+    document.getElementById("audioButton").className = "button button2 green";
+  }
+}
+
+function updateAchievements() {
+  if (parseInt(localStorage.timePlayed) >= 3600) {
+    document.getElementById("addict").className = "button button2 green";
+  } else {
+    document.getElementById("addict").className = "button button2 red";
+  }
+  if (parseInt(localStorage.timePlayed) >= 3600*10) {
+    document.getElementById("addict2").className = "button button2 green";
+  } else {
+    document.getElementById("addict2").className = "button button2 red";
+  }
+  if (parseInt(localStorage.timePlayed) >= 3600*24) {
+    document.getElementById("addict3").className = "button button2 green";
+  } else {
+    document.getElementById("addict3").className = "button button2 red";
+  }
+  if (parseInt(localStorage.totalSpent) >= 1000000) {
+    document.getElementById("spender1").className = "button button2 green";
+  } else {
+    document.getElementById("spender1").className = "button button2 red";
+  }
+  if (parseInt(localStorage.totalSpent) >= 1000000000) {
+    document.getElementById("spender2").className = "button button2 green";
+  } else {
+    document.getElementById("spender2").className = "button button2 red";
+  }
+  if (parseInt(localStorage.totalSpent) >= 1000000000000) {
+    document.getElementById("spender3").className = "button button2 green";
+  } else {
+    document.getElementById("spender3").className = "button button2 red";
   }
 }
 
@@ -239,6 +292,7 @@ function resetSave() {
   localStorage.themeId = 0;
   localStorage.settingsTier = 0;
   localStorage.casinoTier = 0;
+  localStorage.timePlayed = 0;
   updateCashLabel();
   updateCapacityLabel();
   updateInterestLabel();
@@ -248,6 +302,7 @@ function resetSave() {
   changeTheme(0);
   updateCasino(0);
   updateSettings(0);
+  updateAchievements();
 }
 
 updateCapacityLabel();
@@ -259,6 +314,7 @@ updateInterestLabel();
 updateCasino(parseInt(localStorage.casinoTier));
 updateSettings(parseInt(localStorage.settingsTier));
 changeTheme(localStorage.themeId);
+updateAchievements();
 
 //Gain Interest
 setInterval(function() {
@@ -271,4 +327,6 @@ setInterval(function() {
         updateBalance();
       }
     }
+    localStorage.timePlayed = parseInt(localStorage.timePlayed) + 1;
+    updateAchievements();
 }, 1000);

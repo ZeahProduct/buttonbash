@@ -80,7 +80,7 @@ input[type=text]:focus {
 
 #bank {
 	display:table-row;
-	width:calc(50% - 30px);
+	width:calc(60% - 30px);
 }
 
 .hidden, #themes {
@@ -97,7 +97,7 @@ input[type=text]:focus {
 }
 
 #settingsArea {
-	width: calc(50% - 25px);
+	width: calc(40% - 25px);
 	margin-right: 0px;
 }
 
@@ -109,7 +109,7 @@ input[type=text]:focus {
 }
 
 .button{
-	padding: 40px;
+	padding: 30px;
 	width: 80px;
 	max-width: 80px;
 	height: 80px;
@@ -163,14 +163,18 @@ input[type=text]:focus {
 }
 
 .button2 {
-	border-radius: 5px;
+	border-radius: 6px;
 	margin:0 5px 10px 5px;
-	padding-top: 15px;
-	padding-bottom: 15px;
-	width: 125px;
-	max-width: 125px;
-	height: 25px;
-	max-height: 25px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100px;
+	max-width: 100px;
+	height: 20px;
+	max-height: 20px;
+}
+
+.button3 {
+	font-size: 14px;
 }
 
 .button:hover{
