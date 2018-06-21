@@ -101,7 +101,7 @@ input[type=text]:focus {
 	margin-right: 0px;
 }
 
-.container {
+.container1 {
   float:left;
 	margin: 0 auto;
 	padding: 10px;
@@ -118,7 +118,7 @@ input[type=text]:focus {
 	background-color:#f1f1f1;
 	text-align:center;
   display:table-cell;
-	font-size:20px;
+	font-size:18px;
 	text-shadow:0px -1px 1px rgba(255,255,255,0.5);
 	color:#444;
 	-moz-transition:.1s ease-out;
@@ -167,8 +167,8 @@ input[type=text]:focus {
 	margin:0 5px 10px 5px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	width: 100px;
-	max-width: 100px;
+	width: 80px;
+	max-width: 80px;
 	height: 20px;
 	max-height: 20px;
 }

@@ -34,6 +34,9 @@ if (!localStorage.timePlayed) {
 if (!localStorage.casinoRank) {
   localStorage.casinoRank = 1;
 }
+if (!localStorage.casinoChance) {
+  localStorage.casinoChance = 100;
+}
 
 var winAudio = new Audio('win.mp3');
 winAudio.volume = 0.05;
@@ -332,6 +335,7 @@ function resetSave() {
     localStorage.casinoTier = 0;
     localStorage.timePlayed = 0;
     localStorage.casinoRank = 1;
+    localStorage.casinoChance = 100;
     updateCashLabel();
     updateCapacityLabel();
     updateInterestLabel();
@@ -343,6 +347,7 @@ function resetSave() {
     updateSettings(0);
     updateAchievements();
     updateWinChance();
+    document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
   }
 }
 
@@ -354,9 +359,12 @@ function rebirth() {
       updateCashLabel();
       updateBalance();
 
-      if (Random(2) < 1) {
+      if (Random(100) < parseFloat(localStorage.casinoChance)) {
         localStorage.casinoRank = parseInt(localStorage.casinoRank) + 1;
-        document.getElementById("casinoButtonText").innerHTML = "50% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
+        if (parseFloat(localStorage.casinoChance) > 20) {
+          localStorage.casinoChance = parseFloat(localStorage.casinoChance) - 5;
+        }
+        document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
         updateWinChance();
         updateAchievements();
         if (String(localStorage.audio).toLowerCase() === 'true') {
@@ -380,7 +388,7 @@ updateSettings(parseInt(localStorage.settingsTier));
 changeTheme(localStorage.themeId);
 updateAchievements();
 updateWinChance();
-document.getElementById("casinoButtonText").innerHTML = "50% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
+document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
 
 //Gain Interest
 setInterval(function() {
