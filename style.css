@@ -9,9 +9,10 @@ body {
 	margin-bottom: 0px;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   text-shadow: 2px 2px 2px #222;
-	line-height: 22px;
+	line-height: 20px;
+	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }

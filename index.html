@@ -8,10 +8,10 @@
 	<body>
 		<div id="mainContainer">
 			<h1 id="cashBar">
-				Cash: $<span id="cash">5</span>
+				Cash: $<span id="cash">0</span>
 			</h1>
 			<div class="button-area" id="casino">
-				<h1 id="casinoText">Casino 1</h1>
+				<h1><i class="material-icons" style="vertical-align:middle;color:PapayaWhip ;">casino</i> <span id="casinoText">Casino 1</span> <i class="material-icons" style="vertical-align:middle;color:PapayaWhip;">casino</i></h1>
 				<h2 id="chanceText">Win Chance: 10%</h2>
 				<h3 id="totalSpent">Total Gambled: $0</h3>
 				<div class="container1">
@@ -70,7 +70,7 @@
 				</div>
 			</div>
 			<div class="button-area" id="bank">
-					<h1>Bank</h1>
+					<h1><i class="material-icons" style="vertical-align:middle;color:MediumAquaMarine;">account_balance</i> Bank <i class="material-icons" style="vertical-align:middle;color:MediumAquaMarine;">account_balance</i></h1>
 					<h2 id="balance">Balance: $0</h2>
 					<h3 id="interestRate">Interest Rate: 0.1%</h3>
 					<div class="container1">
@@ -86,8 +86,8 @@
 	  			<input type="text" id="bankAmount" placeholder="*">
 			</div>
 			<div class="button-area" style="display:inline-block;" id="settingsArea">
-					<h1>Settings</h1>
-					<h2>v0.0.7</h2>
+					<h1><i class="material-icons" style="vertical-align:middle;color:#888;">settings</i> Settings <i class="material-icons" style="vertical-align:middle;color:#888;">settings</i></h1>
+					<h4>v0.0.8</h4>
 					<div id="left">
 						<h3>Sound Effects</h3>
 						<div class="container1">
@@ -125,7 +125,7 @@
 			</div>
 		</div>
 		<div class="upgradesContainer">
-				<h1>Upgrades</h1>
+				<h1><i class="material-icons" style="vertical-align:middle;color:lime;">arrow_upward</i> Upgrades <i class="material-icons" style="vertical-align:middle;color:lime;">arrow_upward</i></h1>
 				<div id="casinoUpgrades" style="display:inline-block;">
 				<h2>Casino</h2>
 					<div class="container1">
@@ -143,6 +143,9 @@
 					<div class="container1">
 						<div onclick="upgradeInterest()" id="bankUpgrade2" class="button button2 orange">Increased Interest<br/>$500</div>
 					</div>
+					<div class="container1">
+						<div onclick="upgradeLoans()" id="bankUpgrade3" class="button button2 orange">Larger Loans<br/>$1M</div>
+					</div>
 				</div>
 				<div id="settingsUpgrades">
 					<h2>Settings</h2>
@@ -159,7 +162,7 @@
 				</div>
 		</div>
 		<div class="upgradesContainer" id="achievements">
-				<h1>Achievements</h1>
+				<h1><i class="material-icons" style="vertical-align:middle;color:yellow;">star</i> Achievements <i class="material-icons" style="vertical-align:middle;color:yellow;">star</i></h1>
 				<div class="container1">
 					<h2 style='display:table-row'><i class="material-icons">access_time</i><br /><br /></h2>
 					<div id="addict" class="button button2 red">Hooked<br/><div class="button3">Play for 1 hour total</div></div><br />
@@ -178,11 +181,11 @@
 				</div>
 				<div class="container1">
 					<h2 style='display:table-row'><i class="material-icons">casino</i><br /><br /></h2>
-					<div id="lucky1" class="button button2 red">Lucky<br/><div class="button3">Enter the 5th casino</div></div><br />
+					<div id="lucky1" class="button button2 red">Enthusiast<br/><div class="button3">Enter the 5th casino</div></div><br />
 					<h2 style='display:table-row'><br /></h2>
-					<div id="lucky2" class="button button2 red">Blessed<br/><div class="button3">Enter the 10th casino</div></div>
+					<div id="lucky2" class="button button2 red">Professional<br/><div class="button3">Enter the 10th casino</div></div>
 					<h2 style='display:table-row'><br /></h2>
-					<div id="lucky3" class="button button2 red">Insane<br/><div class="button3">Enter the 25th casino</div></div><br />
+					<div id="lucky3" class="button button2 red">Maniac<br/><div class="button3">Enter the 25th casino</div></div><br />
 				</div>
 		</div>
 		<script type="text/javascript" src="main.js"></script>

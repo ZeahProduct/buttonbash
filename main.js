@@ -1,5 +1,5 @@
 if (!localStorage.cash) {
-  localStorage.cash = 5;
+  localStorage.cash = 0;
 }
 if (!localStorage.totalSpent) {
   localStorage.totalSpent = 0;
@@ -36,6 +36,9 @@ if (!localStorage.casinoRank) {
 }
 if (!localStorage.casinoChance) {
   localStorage.casinoChance = 100;
+}
+if (!localStorage.loanAmount) {
+  localStorage.loanAmount = 5;
 }
 
 var winAudio = new Audio('win.mp3');
@@ -211,6 +214,21 @@ function upgradeCapacity() {
     updateCashLabel();
   }
 }
+
+function updateLoanButton() {
+  var price = parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000;
+  document.getElementById("bankUpgrade3").innerHTML = "Larger Loans<br/>$" + abbreviateNumber(price, 2);
+}
+
+function upgradeLoans() {
+  if (parseFloat(localStorage.cash) >= parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000) {
+    localStorage.cash = parseFloat(localStorage.cash) - parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000;
+    localStorage.loanAmount = parseFloat(localStorage.loanAmount) + 5;
+    updateLoanButton();
+    updateCashLabel();
+  }
+}
+
 function updateInterestLabel() {
   var price = Math.pow(Math.pow(parseFloat(localStorage.interestRate) + 10, 2), 4) - 108035670.56;
   if (parseFloat(localStorage.interestRate) >= 0.5) {
@@ -234,7 +252,7 @@ function upgradeInterest() {
 
 function loserButton() {
   if (parseFloat(localStorage.cash) < 1 && parseFloat(localStorage.balance) < 1) {
-    localStorage.cash = parseFloat(localStorage.cash) + 5;
+    localStorage.cash = parseFloat(localStorage.cash) + parseFloat(localStorage.loanAmount);
     updateCashLabel();
   }
 }
@@ -323,7 +341,7 @@ function updateAchievements() {
 
 function resetSave() {
   if (confirm("Are you sure you want to reset your saved data?")) {
-    localStorage.cash = 5;
+    localStorage.cash = 0;
     localStorage.totalSpent = 0;
     localStorage.balance = 0;
     localStorage.interestRate = 0.1;
@@ -336,6 +354,7 @@ function resetSave() {
     localStorage.timePlayed = 0;
     localStorage.casinoRank = 1;
     localStorage.casinoChance = 100;
+    localStorage.loanAmount = 5;
     updateCashLabel();
     updateCapacityLabel();
     updateInterestLabel();
@@ -347,6 +366,7 @@ function resetSave() {
     updateSettings(0);
     updateAchievements();
     updateWinChance();
+    updateLoanButton();
     document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
   }
 }
@@ -354,14 +374,14 @@ function resetSave() {
 function rebirth() {
   if (parseFloat(localStorage.cash) >= Math.pow(parseInt(localStorage.casinoRank), 3)*1000000) {
     if (confirm("Are you sure you want to attempt to move on? All cash will be reset!")) {
-      localStorage.cash = 5;
+      localStorage.cash = 0;
       localStorage.balance = 0;
       updateCashLabel();
       updateBalance();
 
       if (Random(100) < parseFloat(localStorage.casinoChance)) {
         localStorage.casinoRank = parseInt(localStorage.casinoRank) + 1;
-        if (parseFloat(localStorage.casinoChance) > 20) {
+        if (parseFloat(localStorage.casinoChance) > 5) {
           localStorage.casinoChance = parseFloat(localStorage.casinoChance) - 5;
         }
         document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
@@ -388,6 +408,7 @@ updateSettings(parseInt(localStorage.settingsTier));
 changeTheme(localStorage.themeId);
 updateAchievements();
 updateWinChance();
+updateLoanButton();
 document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
 
 //Gain Interest
