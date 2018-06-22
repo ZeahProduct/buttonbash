@@ -87,7 +87,7 @@
 			</div>
 			<div class="button-area" style="display:inline-block;" id="settingsArea">
 					<h1><i class="material-icons" style="vertical-align:middle;color:#888;">settings</i> Settings <i class="material-icons" style="vertical-align:middle;color:#888;">settings</i></h1>
-					<h4>v0.0.8</h4>
+					<h4>v0.0.9</h4>
 					<div id="left">
 						<h3>Sound Effects</h3>
 						<div class="container1">
@@ -135,6 +135,7 @@
 						<div onclick="rebirth()" class="button button2 red">Next Casino<div class="button3" id="casinoButtonText">100% Chance<br/>$1M</div></div>
 					</div>
 				</div>
+				<h2 style='display:table-row'><br /></h2>
 				<h2>Bank</h2>
 				<div id="bankUpgrades" style="display:inline-block;">
 					<div class="container1">
@@ -147,6 +148,7 @@
 						<div onclick="upgradeLoans()" id="bankUpgrade3" class="button button2 orange">Larger Loans<br/>$1M</div>
 					</div>
 				</div>
+				<h2 style='display:table-row'><br /></h2>
 				<div id="settingsUpgrades">
 					<h2>Settings</h2>
 					<div style="display:inline-block;">
@@ -163,30 +165,66 @@
 		</div>
 		<div class="upgradesContainer" id="achievements">
 				<h1><i class="material-icons" style="vertical-align:middle;color:yellow;">star</i> Achievements <i class="material-icons" style="vertical-align:middle;color:yellow;">star</i></h1>
-				<div class="container1">
-					<h2 style='display:table-row'><i class="material-icons">access_time</i><br /><br /></h2>
-					<div id="addict" class="button button2 red">Hooked<br/><div class="button3">Play for 1 hour total</div></div><br />
+				<div style='float:left; width:32%;'>
+					<div class="container1" style="width:90%;">
+						<h2 style='display:table-row'><i class="material-icons">access_time</i><br /><br /></h2>
+						<div id="addict" class="button button2 red">Hooked<br/><div class="button3">Play for 1 hour total</div></div><br />
+							<h2 style='display:table-row'><br /></h2>
+						<div id="addict2" class="button button2 red">Addicted<br/><div class="button3">Play for 10 hours total</div></div><br />
+							<h2 style='display:table-row'><br /></h2>
+						<div id="addict3" class="button button2 red">Yikes<br/><div class="button3">Play for 24 hours total</div></div>
+					</div>
+				</div>
+				<div style='float:left; width:32%;'>
+					<div class="container1" style="width:90%;">
+						<h2 style='display:table-row'><i class="material-icons">attach_money</i><br /><br /></h2>
+						<div id="spender1" class="button button2 red">Millionaire<br/><div class="button3">Spend $1M in the casino</div></div><br />
 						<h2 style='display:table-row'><br /></h2>
-					<div id="addict2" class="button button2 red">Addicted<br/><div class="button3">Play for 10 hours total</div></div><br />
+						<div id="spender2" class="button button2 red">Billionaire<br/><div class="button3">Spend $1B in the casino</div></div>
 						<h2 style='display:table-row'><br /></h2>
-					<div id="addict3" class="button button2 red">Yikes<br/><div class="button3">Play for 24 hours total</div></div>
+						<div id="spender3" class="button button2 red">Trillionaire<br/><div class="button3">Spend $1T in the casino</div></div><br />
+					</div>
 				</div>
-				<div class="container1">
-					<h2 style='display:table-row'><i class="material-icons">attach_money</i><br /><br /></h2>
-					<div id="spender1" class="button button2 red">Millionaire<br/><div class="button3">Spend $1M in the casino</div></div><br />
-					<h2 style='display:table-row'><br /></h2>
-					<div id="spender2" class="button button2 red">Billionaire<br/><div class="button3">Spend $1B in the casino</div></div>
-					<h2 style='display:table-row'><br /></h2>
-					<div id="spender3" class="button button2 red">Trillionaire<br/><div class="button3">Spend $1T in the casino</div></div><br />
+				<div style='float:left; width:32%;'>
+					<div class="container1" style="width:90%;">
+						<h2 style='display:table-row'><i class="material-icons">repeat</i><br /><br /></h2>
+						<div id="lucky1" class="button button2 red">Enthusiast<br/><div class="button3">Enter the 5th casino</div></div><br />
+						<h2 style='display:table-row'><br /></h2>
+						<div id="lucky2" class="button button2 red">Professional<br/><div class="button3">Enter the 10th casino</div></div>
+						<h2 style='display:table-row'><br /></h2>
+						<div id="lucky3" class="button button2 red">Maniac<br/><div class="button3">Enter the 25th casino</div></div><br />
+					</div>
 				</div>
-				<div class="container1">
-					<h2 style='display:table-row'><i class="material-icons">casino</i><br /><br /></h2>
-					<div id="lucky1" class="button button2 red">Enthusiast<br/><div class="button3">Enter the 5th casino</div></div><br />
+				<div style='float:left; width:32%;'>
+					<div class="container1" style="width:90%;">
+						<h2 style='display:table-row'><i class="material-icons">work</i><br /><br /></h2>
+						<div id="loan1" class="button button2 red">Investor<br/><div class="button3">Receive $1K from loans</div></div><br />
+						<h2 style='display:table-row'><br /></h2>
+						<div id="loan2" class="button button2 red">Student<br/><div class="button3">Receive $10K from loans</div></div>
+						<h2 style='display:table-row'><br /></h2>
+						<div id="loan3" class="button button2 red">In Debt<br/><div class="button3">Receive $100K from loans</div></div><br />
+					</div>
+			</div>
+			<div style='float:left; width:32%;'>
+				<div class="container1" style="width:90%;">
+					<h2 style='display:table-row'><i class="material-icons">mouse</i><br /><br /></h2>
+					<div id="click1" class="button button2 red">Hero<br/><div class="button3">Gamble 100 times</div></div><br />
 					<h2 style='display:table-row'><br /></h2>
-					<div id="lucky2" class="button button2 red">Professional<br/><div class="button3">Enter the 10th casino</div></div>
+					<div id="click2" class="button button2 red">Legend<br/><div class="button3">Gamble 1K times</div></div>
 					<h2 style='display:table-row'><br /></h2>
-					<div id="lucky3" class="button button2 red">Maniac<br/><div class="button3">Enter the 25th casino</div></div><br />
+					<div id="click3" class="button button2 red">Champion<br/><div class="button3">Gamble 10K times</div></div><br />
 				</div>
+			</div>
+			<div style='float:left; width:32%;'>
+				<div class="container1" style="width:90%;">
+					<h2 style='display:table-row'><i class="material-icons">help</i><br /><br /></h2>
+					<div onclick="" id="secret1" class="button button2 black">?<div class="button3">Hidden Achievement</div></div>
+					<h2 style='display:table-row'><br /></h2>
+					<div onclick="" id="secret2" class="button button2 black">?<div class="button3">Hidden Achievement</div></div>
+					<h2 style='display:table-row'><br /></h2>
+					<div onclick="" id="secret3" class="button button2 black">?<div class="button3">Hidden Achievement</div></div>
+				</div>
+			</div>
 		</div>
 		<script type="text/javascript" src="main.js"></script>
 	</body>

@@ -40,6 +40,18 @@ if (!localStorage.casinoChance) {
 if (!localStorage.loanAmount) {
   localStorage.loanAmount = 5;
 }
+if (!localStorage.loanTotal) {
+  localStorage.loanTotal = 0;
+}
+if (!localStorage.buttonClicks) {
+  localStorage.buttonClicks = 0;
+}
+if (!localStorage.soundClicks) {
+  localStorage.soundClicks = 0;
+}
+if (!localStorage.jackpotWins) {
+  localStorage.jackpotWins = 0;
+}
 
 var winAudio = new Audio('win.mp3');
 winAudio.volume = 0.05;
@@ -69,8 +81,8 @@ function roundTo(n, digits) {
     if (digits === undefined) {
         digits = 0;
     }
-        if( n < 0) {
-        negative = true;
+    if (n < 0) {
+      negative = true;
       n = n * -1;
     }
     var multiplicator = Math.pow(10, digits);
@@ -127,10 +139,12 @@ function updateCasino(tier) {
 
 function buttonClick(cost, reward) {
   if (parseFloat(localStorage.cash) >= cost) {
+    localStorage.buttonClicks = parseInt(localStorage.buttonClicks) + 1;
     localStorage.cash = parseFloat(localStorage.cash) - cost;
     localStorage.totalSpent = parseInt(localStorage.totalSpent) + cost;
     if (Random(500) == 1 && String(localStorage.jackpots).toLowerCase() === 'true') { // Jackpot
       localStorage.cash = parseFloat(localStorage.cash) + reward*10;
+      localStorage.jackpotWins = parseInt(localStorage.jackpotWins) + 1;
       if (String(localStorage.audio).toLowerCase() === 'true') {
         winAudio.play();
       }
@@ -253,7 +267,9 @@ function upgradeInterest() {
 function loserButton() {
   if (parseFloat(localStorage.cash) < 1 && parseFloat(localStorage.balance) < 1) {
     localStorage.cash = parseFloat(localStorage.cash) + parseFloat(localStorage.loanAmount);
+    localStorage.loanTotal = parseFloat(localStorage.loanTotal) + parseFloat(localStorage.loanAmount);
     updateCashLabel();
+    updateAchievements();
   }
 }
 
@@ -288,6 +304,8 @@ function soundEffects() {
     document.getElementById("audioButton").innerHTML = "On";
     document.getElementById("audioButton").className = "button button2 green";
   }
+  localStorage.soundClicks = parseInt(localStorage.soundClicks) + 1;
+  updateAchievements();
 }
 
 function updateAchievements() {
@@ -337,6 +355,63 @@ function updateAchievements() {
   } else {
     document.getElementById("lucky3").className = "button button2 red";
   }
+
+  if (parseInt(localStorage.loanTotal) >= 1000) {
+    document.getElementById("loan1").className = "button button2 green";
+  } else {
+    document.getElementById("loan1").className = "button button2 red";
+  }
+  if (parseInt(localStorage.loanTotal) >= 10000) {
+    document.getElementById("loan2").className = "button button2 green";
+  } else {
+    document.getElementById("loan2").className = "button button2 red";
+  }
+  if (parseInt(localStorage.loanTotal) >= 100000) {
+    document.getElementById("loan3").className = "button button2 green";
+  } else {
+    document.getElementById("loan3").className = "button button2 red";
+  }
+
+  if (parseInt(localStorage.buttonClicks) >= 100) {
+    document.getElementById("click1").className = "button button2 green";
+  } else {
+    document.getElementById("click1").className = "button button2 red";
+  }
+  if (parseInt(localStorage.buttonClicks) >= 1000) {
+    document.getElementById("click2").className = "button button2 green";
+  } else {
+    document.getElementById("click2").className = "button button2 red";
+  }
+  if (parseInt(localStorage.buttonClicks) >= 10000) {
+    document.getElementById("click3").className = "button button2 green";
+  } else {
+    document.getElementById("click3").className = "button button2 red";
+  }
+
+
+  if (parseInt(localStorage.soundClicks) >= 25) {
+    document.getElementById("secret1").className = "button button2 green";
+    document.getElementById("secret1").innerHTML = 'Indecisive<div class="button3">Toggle audio 25 times</div>';
+  } else {
+    document.getElementById("secret1").className = "button button2 black";
+    document.getElementById("secret1").innerHTML = '?<div class="button3">Hidden Achievement</div>';
+  }
+
+  if (parseInt(localStorage.jackpotWins) >= 100) {
+    document.getElementById("secret2").className = "button button2 green";
+    document.getElementById("secret2").innerHTML = 'Lucky<div class="button3">Win 100 jackpots</div>';
+  } else {
+    document.getElementById("secret2").className = "button button2 black";
+    document.getElementById("secret2").innerHTML = '?<div class="button3">Hidden Achievement</div>';
+  }
+
+  if (parseFloat(localStorage.balance) >= 1000000000000) {
+    document.getElementById("secret3").className = "button button2 green";
+    document.getElementById("secret3").innerHTML = 'Lucky<div class="button3">Have a balance of $1T</div>';
+  } else {
+    document.getElementById("secret3").className = "button button2 black";
+    document.getElementById("secret3").innerHTML = '?<div class="button3">Hidden Achievement</div>';
+  }
 }
 
 function resetSave() {
@@ -355,6 +430,10 @@ function resetSave() {
     localStorage.casinoRank = 1;
     localStorage.casinoChance = 100;
     localStorage.loanAmount = 5;
+    localStorage.loanTotal = 0;
+    localStorage.buttonClicks = 0;
+    localStorage.soundClicks = 0;
+    localStorage.jackpotWins = 0;
     updateCashLabel();
     updateCapacityLabel();
     updateInterestLabel();
@@ -367,7 +446,9 @@ function resetSave() {
     updateAchievements();
     updateWinChance();
     updateLoanButton();
-    document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
+    document.getElementById("secret3").className = "button button2 black";
+    document.getElementById("secret3").innerHTML = '?<div class="button3">Hidden Achievement</div>';
+    document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(roundTo(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000), 2)+"</div>";
   }
 }
 
@@ -384,7 +465,7 @@ function rebirth() {
         if (parseFloat(localStorage.casinoChance) > 5) {
           localStorage.casinoChance = parseFloat(localStorage.casinoChance) - 5;
         }
-        document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
+        document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(roundTo(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000), 2) +"</div>";
         updateWinChance();
         updateAchievements();
         if (String(localStorage.audio).toLowerCase() === 'true') {
