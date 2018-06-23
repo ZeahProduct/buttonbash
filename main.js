@@ -130,7 +130,7 @@ function Random(max) {
 function updateCashLabel() {
   document.getElementById("cash").innerHTML = abbreviateNumber(localStorage.cash, 2);
   document.getElementById("tokens").innerHTML = parseInt(localStorage.tokens);
-  var tokens = parseInt(localStorage.cash.length / 7);
+  var tokens = parseInt(localStorage.cash.length - 6);
   if (tokens == 1) {
     document.getElementById("rebirthText").innerHTML = "Gives " + tokens + " Token";
   } else {
