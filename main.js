@@ -130,7 +130,7 @@ function Random(max) {
 function updateCashLabel() {
   document.getElementById("cash").innerHTML = abbreviateNumber(localStorage.cash, 2);
   document.getElementById("tokens").innerHTML = parseInt(localStorage.tokens);
-  var tokens = parseInt(localStorage.cash.length - 6);
+  var tokens = localStorage.cash.length - 6;
   if (tokens == 1) {
     document.getElementById("rebirthText").innerHTML = "Gives " + tokens + " Token";
   } else if (tokens >= 0) {
@@ -513,7 +513,9 @@ function rebirth() {
 
 function actualRebirth() {
   if (confirm("Are you sure you want to attempt to move on? All cash will be reset!")) {
-      localStorage.tokens = parseInt(localStorage.tokens) + localStorage.cash.length / 7;
+      if (localStorage.tokens > 0) {
+        localStorage.tokens = parseInt(localStorage.tokens) + parseInt(localStorage.cash.length - 6);
+      }
       localStorage.cash = 0;
       localStorage.balance = 0;
       updateCashLabel();
