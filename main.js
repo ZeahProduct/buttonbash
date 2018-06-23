@@ -133,8 +133,10 @@ function updateCashLabel() {
   var tokens = parseInt(localStorage.cash.length - 6);
   if (tokens == 1) {
     document.getElementById("rebirthText").innerHTML = "Gives " + tokens + " Token";
-  } else {
+  } else if (tokens >= 0) {
     document.getElementById("rebirthText").innerHTML = "Gives " + tokens + " Tokens";
+  } else {
+    document.getElementById("rebirthText").innerHTML = "Gives 0 Tokens";
   }
   document.getElementById("totalSpent").innerHTML = "Total Gambled: $" + numberWithCommas(localStorage.totalSpent).slice(0, -3);
   for (var i=1; i<100000000000000000000000000000000000;i*=10) {
