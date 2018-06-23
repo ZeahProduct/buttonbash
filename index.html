@@ -8,7 +8,8 @@
 	<body>
 		<div id="mainContainer">
 			<h1 id="cashBar">
-				Cash: $<span id="cash">0</span>
+				Cash: $<span id="cash">0</span><br /><br />
+				Tokens: <span id="tokens">0</span>
 			</h1>
 			<div class="button-area" id="casino">
 				<h1><i class="material-icons" style="vertical-align:middle;color:PapayaWhip ;">casino</i> <span id="casinoText">Casino 1</span> <i class="material-icons" style="vertical-align:middle;color:PapayaWhip;">casino</i></h1>
@@ -68,6 +69,63 @@
 				<div class="container1" id="gamble100000000000000000">
 					<div onclick="buttonClick(100000000000000000, 1500000000000000000)" class="button button2 blue">$100Q</div>
 				</div>
+				<div class="container1" id="gamble1000000000000000000">
+					<div onclick="buttonClick(1000000000000000000, 15000000000000000000)" class="button button2 blue">$1Qt</div>
+				</div>
+				<div class="container1" id="gamble10000000000000000000">
+					<div onclick="buttonClick(10000000000000000000, 150000000000000000000)" class="button button2 blue">$10Qt</div>
+				</div>
+				<div class="container1" id="gamble100000000000000000000">
+					<div onclick="buttonClick(100000000000000000000, 1500000000000000000000)" class="button button2 blue">$100Qt</div>
+				</div>
+				<div class="container1" id="gamble1e+21">
+					<div onclick="buttonClick(1000000000000000000000, 15000000000000000000000)" class="button button2 blue">$1S</div>
+				</div>
+				<div class="container1" id="gamble1e+22">
+					<div onclick="buttonClick(10000000000000000000000, 150000000000000000000000)" class="button button2 blue">$10S</div>
+				</div>
+				<div class="container1" id="gamble1e+23">
+					<div onclick="buttonClick(100000000000000000000000, 1500000000000000000000000)" class="button button2 blue">$100S</div>
+				</div>
+				<div class="container1" id="gamble1e+24">
+					<div onclick="buttonClick(1000000000000000000000000, 15000000000000000000000000)" class="button button2 blue">$1St</div>
+				</div>
+				<div class="container1" id="gamble9.999999999999999e+24">
+					<div onclick="buttonClick(10000000000000000000000000, 150000000000000000000000000)" class="button button2 blue">$10St</div>
+				</div>
+				<div class="container1" id="gamble9.999999999999999e+25">
+					<div onclick="buttonClick(100000000000000000000000000, 1500000000000000000000000000)" class="button button2 blue">$100St</div>
+				</div>
+				<div class="container1" id="gamble9.999999999999999e+26">
+					<div onclick="buttonClick(1000000000000000000000000000, 15000000000000000000000000000)" class="button button2 blue">$1O</div>
+				</div>
+				<div class="container1" id="gamble1e+28">
+					<div onclick="buttonClick(10000000000000000000000000000, 150000000000000000000000000000)" class="button button2 blue">$10O</div>
+				</div>
+				<div class="container1" id="gamble1e+29">
+					<div onclick="buttonClick(100000000000000000000000000000, 1500000000000000000000000000000)" class="button button2 blue">$100O</div>
+				</div>
+				<div class="container1" id="gamble9.999999999999999e+29">
+					<div onclick="buttonClick(1000000000000000000000000000000, 15000000000000000000000000000000)" class="button button2 blue">$1N</div>
+				</div>
+				<div class="container1" id="gamble9.999999999999999e+30">
+					<div onclick="buttonClick(10000000000000000000000000000000, 150000000000000000000000000000000)" class="button button2 blue">$10N</div>
+				</div>
+				<div class="container1" id="gamble9.999999999999999e+31">
+					<div onclick="buttonClick(100000000000000000000000000000000, 1500000000000000000000000000000000)" class="button button2 blue">$100N</div>
+				</div>
+				<div class="container1" id="gamble1e+33">
+					<div onclick="buttonClick(1000000000000000000000000000000000, 15000000000000000000000000000000000)" class="button button2 blue">$1D</div>
+				</div>
+				<div class="container1" id="gamble1e+34">
+					<div onclick="buttonClick(10000000000000000000000000000000000, 150000000000000000000000000000000000)" class="button button2 blue">$10D</div>
+				</div>
+				<div class="container1" id="gamble1e+35">
+					<div onclick="buttonClick(100000000000000000000000000000000000, 1500000000000000000000000000000000000)" class="button button2 blue">$100D</div>
+				</div>
+				<div class="container1" id="rebirthButton">
+					<div onclick="actualRebirth()" class="button button2 red">Rebirth<div class="button3" id="rebirthText">Gives 0 Tokens</div></div>
+				</div>
 			</div>
 			<div class="button-area" id="bank">
 					<h1><i class="material-icons" style="vertical-align:middle;color:MediumAquaMarine;">account_balance</i> Bank <i class="material-icons" style="vertical-align:middle;color:MediumAquaMarine;">account_balance</i></h1>
@@ -87,7 +145,7 @@
 			</div>
 			<div class="button-area" style="display:inline-block;" id="settingsArea">
 					<h1><i class="material-icons" style="vertical-align:middle;color:#888;">settings</i> Settings <i class="material-icons" style="vertical-align:middle;color:#888;">settings</i></h1>
-					<h4>v0.0.9</h4>
+					<h4>v0.0.10</h4>
 					<div id="left">
 						<h3>Sound Effects</h3>
 						<div class="container1">
@@ -132,7 +190,7 @@
 						<div onclick="upgradeCasino()" id="casinoUpgrade" class="button button2 blue">Jackpots<br/>$1.5K</div>
 					</div>
 					<div class="container1" id="rebirth">
-						<div onclick="rebirth()" class="button button2 red">Next Casino<div class="button3" id="casinoButtonText">100% Chance<br/>$1M</div></div>
+						<div onclick="rebirth()" class="button button2 blue">Next Casino<div class="button3" id="casinoButtonText">100% Chance<br/>5 Tokens</div></div>
 					</div>
 				</div>
 				<h2 style='display:table-row'><br /></h2>
@@ -198,11 +256,11 @@
 				<div style='float:left; width:32%;'>
 					<div class="container1" style="width:90%;">
 						<h2 style='display:table-row'><i class="material-icons">work</i><br /><br /></h2>
-						<div id="loan1" class="button button2 red">Investor<br/><div class="button3">Receive $1K from loans</div></div><br />
+						<div id="loan1" class="button button2 red">In Debt<br/><div class="button3">Receive $1K from loans</div></div><br />
 						<h2 style='display:table-row'><br /></h2>
 						<div id="loan2" class="button button2 red">Student<br/><div class="button3">Receive $10K from loans</div></div>
 						<h2 style='display:table-row'><br /></h2>
-						<div id="loan3" class="button button2 red">In Debt<br/><div class="button3">Receive $100K from loans</div></div><br />
+						<div id="loan3" class="button button2 red">Bankrupt<br/><div class="button3">Receive $100K from loans</div></div><br />
 					</div>
 			</div>
 			<div style='float:left; width:32%;'>

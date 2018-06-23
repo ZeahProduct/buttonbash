@@ -1,6 +1,9 @@
 if (!localStorage.cash) {
   localStorage.cash = 0;
 }
+if (!localStorage.tokens) {
+  localStorage.tokens = 0;
+}
 if (!localStorage.totalSpent) {
   localStorage.totalSpent = 0;
 }
@@ -56,27 +59,53 @@ if (!localStorage.jackpotWins) {
 var winAudio = new Audio('win.mp3');
 winAudio.volume = 0.05;
 
+function isString(x) {
+  return Object.prototype.toString.call(x) === "[object String]"
+}
+
 function abbreviateNumber(num, digits) {
-    num = parseFloat(num);
+    if (isString(num)) {
+      num = parseFloat(num);
+    }
     var units = ['K', 'M', 'B', 'T', 'Q', 'Qt', 'S', ' St', 'O', 'N', 'D'],
         decimal;
 
     for(var i=units.length-1; i>=0; i--) {
         decimal = Math.pow(1000, i+1);
-
         if(num <= -decimal || num >= decimal) {
             return +(num / decimal).toFixed(digits) + units[i];
         }
     }
 
-    return roundTo(num, 2);
+    return roundTo(num, digits);
 }
 
 const numberWithCommas = (x) => {
   return roundTo(parseFloat(x), 2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function toFixed(x) {
+  if (Math.abs(x) < 1.0) {
+    var e = parseInt(x.toString().split('e-')[1]);
+    if (e) {
+        x *= Math.pow(10,e-1);
+        x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+    }
+  } else {
+    var e = parseInt(x.toString().split('+')[1]);
+    if (e > 20) {
+        e -= 20;
+        x /= Math.pow(10,e);
+        x += (new Array(e+1)).join('0');
+    }
+  }
+  return x;
+}
+
 function roundTo(n, digits) {
+    if (isString(n)) {
+      n = parseFloat(num);
+    }
     var negative = false;
     if (digits === undefined) {
         digits = 0;
@@ -100,12 +129,19 @@ function Random(max) {
 
 function updateCashLabel() {
   document.getElementById("cash").innerHTML = abbreviateNumber(localStorage.cash, 2);
+  document.getElementById("tokens").innerHTML = parseInt(localStorage.tokens);
+  var tokens = parseInt(localStorage.cash.length / 7);
+  if (tokens == 1) {
+    document.getElementById("rebirthText").innerHTML = "Gives " + tokens + " Token";
+  } else {
+    document.getElementById("rebirthText").innerHTML = "Gives " + tokens + " Tokens";
+  }
   document.getElementById("totalSpent").innerHTML = "Total Gambled: $" + numberWithCommas(localStorage.totalSpent).slice(0, -3);
-  for (var i=100; i<10000000000000000000;i*=10) {
+  for (var i=1; i<100000000000000000000000000000000000;i*=10) {
     if (parseFloat(localStorage.totalSpent) >= i) {
-      document.getElementById("gamble"+(i/10)).style.display = "inline-block";
+      document.getElementById("gamble"+(i*10)).style.display = "inline-block";
     } else {
-      document.getElementById("gamble"+(i/10)).style.display = "none";
+      document.getElementById("gamble"+(i*10)).style.display = "none";
     }
   }
 }
@@ -230,13 +266,13 @@ function upgradeCapacity() {
 }
 
 function updateLoanButton() {
-  var price = parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000;
+  var price = parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000;
   document.getElementById("bankUpgrade3").innerHTML = "Larger Loans<br/>$" + abbreviateNumber(price, 2);
 }
 
 function upgradeLoans() {
-  if (parseFloat(localStorage.cash) >= parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000) {
-    localStorage.cash = parseFloat(localStorage.cash) - parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000;
+  if (parseFloat(localStorage.cash) >= parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000) {
+    localStorage.cash = parseFloat(localStorage.cash) - parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*parseFloat(localStorage.loanAmount)*200000;
     localStorage.loanAmount = parseFloat(localStorage.loanAmount) + 5;
     updateLoanButton();
     updateCashLabel();
@@ -405,18 +441,16 @@ function updateAchievements() {
     document.getElementById("secret2").innerHTML = '?<div class="button3">Hidden Achievement</div>';
   }
 
-  if (parseFloat(localStorage.balance) >= 1000000000000) {
+  if (parseFloat(localStorage.balance) >= 1000000000000000) {
     document.getElementById("secret3").className = "button button2 green";
-    document.getElementById("secret3").innerHTML = 'Lucky<div class="button3">Have a balance of $1T</div>';
-  } else {
-    document.getElementById("secret3").className = "button button2 black";
-    document.getElementById("secret3").innerHTML = '?<div class="button3">Hidden Achievement</div>';
+    document.getElementById("secret3").innerHTML = 'Interested<div class="button3">Have a balance of $1Q</div>';
   }
 }
 
 function resetSave() {
   if (confirm("Are you sure you want to reset your saved data?")) {
     localStorage.cash = 0;
+    localStorage.tokens = 0;
     localStorage.totalSpent = 0;
     localStorage.balance = 0;
     localStorage.interestRate = 0.1;
@@ -448,33 +482,40 @@ function resetSave() {
     updateLoanButton();
     document.getElementById("secret3").className = "button button2 black";
     document.getElementById("secret3").innerHTML = '?<div class="button3">Hidden Achievement</div>';
-    document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(roundTo(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000), 2)+"</div>";
+    document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>" + (Math.pow(parseInt(localStorage.casinoRank)+1, 3)+2)+" Tokens</div>";
   }
 }
 
 function rebirth() {
-  if (parseFloat(localStorage.cash) >= Math.pow(parseInt(localStorage.casinoRank), 3)*1000000) {
-    if (confirm("Are you sure you want to attempt to move on? All cash will be reset!")) {
+  if (parseFloat(localStorage.tokens) >= Math.pow(parseInt(localStorage.casinoRank)+1, 3)+2) {
+    localStorage.tokens = parseFloat(localStorage.tokens) - Math.pow(parseInt(localStorage.casinoRank)+1, 3)+2;
+    updateCashLabel();
+    updateBalance();
+
+    if (Random(100) < parseFloat(localStorage.casinoChance)) {
+      localStorage.casinoRank = parseInt(localStorage.casinoRank) + 1;
+      if (parseFloat(localStorage.casinoChance) > 5) {
+        localStorage.casinoChance = parseFloat(localStorage.casinoChance) - 5;
+      }
+      document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>" + (Math.pow(parseInt(localStorage.casinoRank)+1, 3)+2) +" Tokens</div>";
+      updateWinChance();
+      updateAchievements();
+      if (String(localStorage.audio).toLowerCase() === 'true') {
+        winAudio.play();
+      }
+    } else {
+      // Play fail audio
+    }
+  }
+}
+
+function actualRebirth() {
+  if (confirm("Are you sure you want to attempt to move on? All cash will be reset!")) {
+      localStorage.tokens = parseInt(localStorage.tokens) + localStorage.cash.length / 7;
       localStorage.cash = 0;
       localStorage.balance = 0;
       updateCashLabel();
-      updateBalance();
-
-      if (Random(100) < parseFloat(localStorage.casinoChance)) {
-        localStorage.casinoRank = parseInt(localStorage.casinoRank) + 1;
-        if (parseFloat(localStorage.casinoChance) > 5) {
-          localStorage.casinoChance = parseFloat(localStorage.casinoChance) - 5;
-        }
-        document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(roundTo(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000), 2) +"</div>";
-        updateWinChance();
-        updateAchievements();
-        if (String(localStorage.audio).toLowerCase() === 'true') {
-          winAudio.play();
-        }
-      } else {
-        // Play fail audio
-      }
-    }
+      updateCapacityLabel();
   }
 }
 
@@ -490,7 +531,7 @@ changeTheme(localStorage.themeId);
 updateAchievements();
 updateWinChance();
 updateLoanButton();
-document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>$"+abbreviateNumber(Math.pow(parseInt(localStorage.casinoRank), 3)*1000000)+"</div>";
+document.getElementById("casinoButtonText").innerHTML = localStorage.casinoChance + "% Chance<br/>" + (Math.pow(parseInt(localStorage.casinoRank)+1, 3)+2) +" Tokens</div>";
 
 //Gain Interest
 setInterval(function() {
